@@ -8,6 +8,8 @@ public class DragAndDrop : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     private Camera mainCamera;
     private float zDistance;
 
+    [SerializeField] Material mat = default;
+
     void Start()
     {
         // 起動時にメインカメラを取得しておく
@@ -56,6 +58,8 @@ public class DragAndDrop : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     // ドラッグ終了時（ドロップした瞬間）
     public void OnEndDrag(PointerEventData eventData)
     {
+
+        this.GetComponent<MeshRenderer>().material = mat;
         // ドロップした瞬間に何か処理をしたい場合（色を変える、音を鳴らす等）はここに書きます
         // 今回は移動のみなので空にしてあります
     }
