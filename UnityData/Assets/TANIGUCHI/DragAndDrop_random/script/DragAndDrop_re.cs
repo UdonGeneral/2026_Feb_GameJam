@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 // IBeginDragHandler, IDragHandler, IEndDragHandler を追加
 public class DragAndDrop_re : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -8,6 +10,15 @@ public class DragAndDrop_re : MonoBehaviour, IPointerClickHandler, IPointerEnter
     private Camera mainCamera;
     private float zDistance;
 
+    public Material material_2;
+
+    public Material material_1;
+
+    private MeshRenderer render_color1;
+
+    string brock_noun;
+
+    // RGB調整用のColor関数指定
     Color randomColor;
 
     void Start()
@@ -15,6 +26,10 @@ public class DragAndDrop_re : MonoBehaviour, IPointerClickHandler, IPointerEnter
         // 起動時にメインカメラを取得しておく
         mainCamera = Camera.main;
 
+        render_color1 = GetComponent<MeshRenderer>();
+
+
+        //カラーをランダムで変えるようにする。
         randomColor = Color.HSVToRGB(
             Random.value,
             1f,
@@ -60,19 +75,25 @@ public class DragAndDrop_re : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
         // スクリーン座標を3Dのワールド座標に変換して、オブジェクトの位置を更新する
         transform.position = mainCamera.ScreenToWorldPoint(screenPosition);
+
     }
 
     // ドラッグ終了時（ドロップした瞬間）
     public void OnEndDrag(PointerEventData eventData)
     {
 
-        GetComponent<MeshRenderer>().material.color = randomColor;
+        if (brock_noun == "?")
+        {
+            Debug.Log("nurupo");
+        }
 
-        randomColor = Color.HSVToRGB(
-            Random.value,
-            1f,
-            1f
-        );
+        render_color1.material.color = randomColor;
+
+        render_color1.material = material_2;
+
+        brock_noun = "?";
+
+        randomColor = Color.HSVToRGB(Random.value, 1f, 1f);
         // ドロップした瞬間に何か処理をしたい場合（色を変える、音を鳴らす等）はここに書きます
         // 今回は移動のみなので空にしてあります
     }
