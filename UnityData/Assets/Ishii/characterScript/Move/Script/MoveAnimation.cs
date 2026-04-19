@@ -72,6 +72,16 @@ public class MovementAndAnimation
         Vector3 move = new Vector3(currentVelocityX, 0, 0);
 
         transform.Translate(move * Time.deltaTime, Space.World);
+
+        if (currentVelocityX > 0.01f)
+        {
+            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+        }
+        else if (currentVelocityX < -0.01f)
+        {
+            transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+        }
+
     }
 
     public void StopMoving()
