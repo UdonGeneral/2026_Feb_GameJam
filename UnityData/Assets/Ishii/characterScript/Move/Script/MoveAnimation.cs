@@ -14,6 +14,8 @@ public class MovementAndAnimation
     public float decelerationRate = 5f; // 止まる時の滑り具合（小さいほどツルツル滑る）
     public float accelerationRate = 10f; // 動き出しの機敏さ（大きいほどすぐ最高速になる）
 
+    public float rotationSpeed = 12f; //振り向きの速さ
+
     private float currentVelocityX = 0f; //向きと速さを記録
     public bool canMove = true;
 
@@ -73,15 +75,18 @@ public class MovementAndAnimation
 
         transform.Translate(move * Time.deltaTime, Space.World);
 
+        Quaternion targetRotation = transform.rotation;
+
         if (currentVelocityX > 0.01f)
         {
-            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            targetRotation = Quaternion.Euler(0f, 90f, 0f);
         }
         else if (currentVelocityX < -0.01f)
         {
-            transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+            targetRotation = Quaternion.Euler(0f, -90f, 0f);
         }
 
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     public void StopMoving()

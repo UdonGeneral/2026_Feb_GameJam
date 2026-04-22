@@ -387,6 +387,7 @@ MonoBehaviour:
   moveSpeed: 0.8
   decelerationRate: 3
   accelerationRate: 8
+  rotationSpeed: 6
   canMove: 1
 --- !u!1 &1318205537 stripped
 GameObject:
