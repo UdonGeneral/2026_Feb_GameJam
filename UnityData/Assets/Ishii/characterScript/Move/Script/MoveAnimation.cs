@@ -4,8 +4,6 @@ using TMPro.Examples;
 using UnityEngine;
 
 
-using UnityEngine;
-
 public class MovementAndAnimation
  : MonoBehaviour
 {
